@@ -13,7 +13,6 @@ Key components include:
 - Model explainability using SHAP.
 - Report generation using Large Language Models (LLMs) for both patients and clinicians.
 
----
 
 ## 📂 Repository Structure
 
