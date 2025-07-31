@@ -33,5 +33,6 @@ Key components include:
 │   ├── Gemini_2.0-Flash (reports and prompts)
 │   ├── GPT-4o (reports and prompts)
 |
-└── `TCGA_OCR_grades.csv` – Contains grade information for TCGA patients, extracted via OCR from unstructured, multipage PDF pathology reports available online at [https://github.com/inodb/datahub/tree/add-symlink-path-report/tcga/pathology_reports].
+└── `TCGA_OCR_grades.csv` – Contains grade information for TCGA patients, extracted via OCR from unstructured, multipage PDF pathology reports.
+Used reports are available online at this [link](https://github.com/inodb/datahub/tree/add-symlink-path-report/tcga/pathology_reports)
 └── README.md
