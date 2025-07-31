@@ -1,4 +1,4 @@
-# ER+HER2-BC_Grade_Classification
+# ER+/HER2- Breast Cancer Grade Classification using Machine Learning
 Intepretable grade prediction pipeline for **ER+/HER2- Breast Cancer** using an **8-gene signature**. It includes classification, clustering, survival analysis, OCR-based grade extraction, and LLM-powered clinical reporting.
 
 ## 🧬 Overview
