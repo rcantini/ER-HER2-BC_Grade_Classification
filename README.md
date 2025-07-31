@@ -4,8 +4,8 @@
 ## 🧬 Overview
 
 This repository implements a complete and interpretable pipeline for predicting histological tumor grade in ER+/HER2- breast cancer patients.  
-Key components include:
 
+Key components include:
 - Feature selection and grade classification using METABRIC gene expression data.
 - Unsupervised clustering and validation on TCGA samples.
 - Integration of OCR-extracted clinical annotations from pathology reports.
