@@ -9,7 +9,7 @@ Key components include:
 - Feature selection and grade classification using METABRIC gene expression data.
 - Unsupervised clustering and validation on TCGA samples.
 - Integration of OCR-derived clinical annotations from pathology reports.
-- Survival analysis (OS, RFS, DFI, PFI).
+- Survival analysis.
 - Model explainability using SHAP.
 - Report generation using Large Language Models (LLMs) for both patients and clinicians.
 
@@ -19,11 +19,6 @@ Key components include:
 
 ```plaintext
 .
-├── data/
-│   ├── METABRIC_expression_clinical.csv
-│   ├── TCGA_expression_clinical_clusters.csv
-│   └── TCGA_OCR_grades.csv
-│
 ├── scripts/
 │   ├── METABRIC_analysis.R
 │   ├── TCGA_analysis.R
@@ -35,18 +30,8 @@ Key components include:
 │   ├── TCGA_clustering_ER+.ipynb
 │   └── metrics.ipynb
 │
-├── models/
-│   ├── distilled_model.pkl
-│   └── tree_ensemble_summary.json
-│
-├── reports/
-│   ├── patient_report_example.txt
-│   ├── clinician_report_example.txt
-│   ├── SHAP_summary_patient_62.png
-│   └── Radar_plot_patient_62.png
-│
-├── llm_prompts/
-│   ├── doctor_prompt.md
-│   └── patient_prompt.md
-│
+├── LLM-generated-reports/
+│   ├── Gemini_2.0-Flash (reports and prompts)
+│   ├── GPT-4o (reports and prompts)
+|
 └── README.md
