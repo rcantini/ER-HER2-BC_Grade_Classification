@@ -18,20 +18,20 @@ Key components include:
 
 ```plaintext
 .
-├── scripts/
-│   ├── METABRIC_analysis.R
-│   ├── TCGA_analysis.R
-│   ├── download_reports.py
-│   └── reports_filtering.py
-│
+├── LLM-generated-reports/
+│   ├── Gemini_2.0-Flash (reports and prompts)
+│   ├── GPT-4o (reports and prompts)
+|
 ├── notebooks/
 │   ├── METABRIC_classification.ipynb
 │   ├── TCGA_clustering_ER+.ipynb
 │   └── metrics.ipynb
 │
-├── LLM-generated-reports/
-│   ├── Gemini_2.0-Flash (reports and prompts)
-│   ├── GPT-4o (reports and prompts)
+├── scripts/
+│   ├── METABRIC_analysis.R
+│   ├── TCGA_analysis.R
+│   ├── download_reports.py
+│   └── reports_filtering.py
 |
 └── `TCGA_OCR_grades.csv` – Contains OCR-extracted grade information for TCGA.
 └── README.md
