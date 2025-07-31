@@ -7,9 +7,9 @@ This repository implements a complete and interpretable pipeline for predicting 
 
 Key components include:
 - Feature selection and grade classification using METABRIC gene expression data.
-- Unsupervised clustering and validation on TCGA samples.
+- Clustering analysis on TCGA samples.
+- Survival analysis and statistical validation.
 - Integration of OCR-extracted clinical annotations from pathology reports.
-- Survival analysis.
 - Model explainability using SHAP.
 - Report generation using Large Language Models (LLMs) for both patients and clinicians.
 
