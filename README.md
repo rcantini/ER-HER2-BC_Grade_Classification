@@ -40,3 +40,9 @@ Key components include:
 ## 📝 OCR-Based Grade Extraction
 
 Grade information for TCGA patients was extracted via OCR from unstructured, multipage PDF pathology reports is provided in the `TCGA_OCR_grades.csv` file. Used reports are publicly available online at this [link](https://github.com/inodb/datahub/tree/add-symlink-path-report/tcga/pathology_reports).
+
+## ✉️ Contact
+
+For questions, collaborations, or support, feel free to contact:
+- *Riccardo Cantini* – [riccardo.cantini@unical.it](mailto:riccardo.cantini@unical.it)  
+- *Marianna Talia* – [marianna.talia@unical.it](mailto:marianna.talia@unical.it)
