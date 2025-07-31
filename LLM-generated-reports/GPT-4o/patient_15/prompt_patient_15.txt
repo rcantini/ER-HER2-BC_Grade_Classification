@@ -1,0 +1,63 @@
+Using the provided information, write a report of the breast cancer grade prediction tailored to two specific stakeholders: the doctor and the patient.
+Provide an informative, scientific interpretation for the doctor and a simplified explanation for the patient.
+
+To produce the reports, you are provided with the following information:
+1) The patient id.
+2) The breast cancer grade predicted by the model, which can be one of the following:
+   - Grade 2: Indicates a moderately differentiated tumor with intermediate prognostic implications.
+   - Grade 3: Suggests high-grade cancer with a tendency toward aggressive behavior and rapid growth.
+3) The expression levels of the following genes:
+   - Considered genes:
+      -- "CDCA5", "AURKA", "UBE2C" and "CCNB2", whose overexpression correlates with poor breast cancer prognosis.
+      -- "BBOF1", "APH1B", "CYB5D1" and "MKNK2", whose overexpression correlates with better prognosis.
+   - Genes description:
+      -- Cell Division Cycle Associated 5 (CDCA5): Implicated in the regulation of cell cycle-related proteins, breast cancer cell growth, chromosomal stability, and double-strand break repair. Its overexpression is associated with a shorter survival rate in breast cancer patients.
+      -- Aurora Kinase A (AURKA): A cell cycle-regulated kinase involved in microtubule formation and stabilization at the spindle pole during chromosome segregation. AURKA plays a role in breast cancer development and progression, and its overexpression is linked to aggressive tumor characteristics (high Ki67, positive nodes) and a high risk of recurrence.
+      -- Ubiquitin Conjugating Enzyme E2 C (UBE2C): A key component of the ubiquitin-proteasome system, playing a pivotal role in the positive regulation of the cell cycle. High UBE2C levels correlate with poor prognosis and breast cancer progression.
+      -- Cyclin B2 (CCNB2): An essential component of the cell cycle regulatory machinery, promoting the G2/M phase transition. Its overexpression is associated with enhanced breast cancer cell proliferation and predicts poor prognosis in breast carcinoma patients.
+      -- Aph-1 Homolog B, Gamma-Secretase Subunit (APH1B): A transmembrane protein belonging to the gamma-secretase complex, which cleaves various proteins within their transmembrane domains. High APH1B levels are associated with a good prognosis in breast cancer patients.
+      -- Basal Body Orientation Factor 1 (BBOF1): Required for the assembly and function of motile cilia.
+      -- Cytochrome B5 Domain Containing 1 (CYB5D1): Predicted to enable metal ion binding activity, cilium movement, and regulation of cilium beat frequency. It is also predicted to be located in the cell projection.
+      -- MAPK Interacting Serine/Threonine Kinase 2 (MKNK2): A downstream kinase activated by mitogen-activated protein kinases (MAPK). It phosphorylates the eukaryotic initiation factor 4E (eIF4E), playing an important role in mRNA translation initiation and the regulation of cell proliferation.
+4) The contribution of each gene on the model's tumor grade prediction:
+   - The absolute value of the contribution indicates the gene's impact on the model's prediction.
+   - The sign shows the direction in which it influences the model, i.e. negative values push the prediction toward Grade 2, while positive values push it toward Grade 3.
+   - Note that the contribution of each gene to the algorithm's prediction does not necessarily correlate with its expression level (e.g., the underexpression of certain genes can be a crucial factor in the model's prediction, while the overexpression of other genes may have little impact on the model's decision).
+
+To produce the reports, you must adhere to the following rules:
+- **Doctor's Report**:
+   -- Use precise medical terminology, following carefully the provided information.
+   -- Focus on genes with the highest absolute contribution on the predicted tumor grade and exclude the others (i.e., those whose contribution is close to zero), as they are unlikely to meaningfully impact treatment decisions.
+   -- Structure: 
+      1. **Clinical Interpretation**:
+         - Provide a summary of the predicted tumor grade and its implications for prognosis based on genetic information.
+      2. **Key Genetic Contributors**:
+         - Provide information about the most impactful genes and insights on their role in the tumor progression.
+      3. **Methodology and Report Generation**:
+         - Specify the following information:
+            -- Predictions were made using machine learning techniques.
+            -- Importance scores are computed using SHAP values, which quantify each gene's contribution to the predicted grade.
+            -- The report was written with generative AI.
+- **Patient's Report**:
+   -- Avoid technical jargon, use clear, simple language, and provide reassurance by framing the information in a supportive and optimistic manner.
+   -- Structure:
+      1. **What Does This Mean for You**:
+         - Briefly explain the grade prediction and what it means for the patient's health.
+      2. **Understanding the Key Genes**:
+         - Describe the genes that play a role in the tumor behavior, focusing on what this means for the patient's prognosis and treatment options.
+      3. **Next Steps**:
+         - Outline the next steps in treatment and monitoring.
+         - Encourage the patient to have an open discussion with their doctor for more personalized guidance.
+         
+Provided Information:
+- Patient id: 15
+- Predicted grade: 2
+- Gene expression level and corresponding contribution on model's prediction:
+   -- CDCA5 -> Expression: Normal; importance: -0.21154761904762043
+   -- AURKA -> Expression: Normal; importance: -0.2915476190476196
+   -- UBE2C -> Expression: Normal; importance: -0.016952380952381132
+   -- CCNB2 -> Expression: Normal; importance: -0.004952380952380729
+   -- BBOF1 -> Expression: Underexpressed; importance: -0.008119047619047588
+   -- APH1B -> Expression: Underexpressed; importance: 0.07073809523809507
+   -- CYB5D1 -> Expression: Underexpressed; importance: 0.003976190476190487
+   -- MKNK2 -> Expression: Underexpressed; importance: -0.0015952380952380524

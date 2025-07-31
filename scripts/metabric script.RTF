@@ -1,0 +1,119 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2638
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww11520\viewh8400\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 library(tidyverse)\
+library(ggpubr)\
+library(reshape2)  \
+library(survival)\
+library(survminer)\
+\
+#data upload\
+whole_dataset <- read_csv("whole_data_to_start.csv")\
+whole_dataset$...1 <- NULL\
+\
+\
+#data filtering for breast cancer subtype and tumor grade\
+whole_dataset_BC_subtype <- whole_dataset %>% filter(ER_STATUS=="Positive")\
+whole_dataset_BC_subtype_filt <- whole_dataset_BC_subtype %>% filter(GRADE=="2" | GRADE =="3") \
+\
+\
+# 1. Drawing of violin multiple plot\
+\
+#selection of grade feature and gene columns\
+whole_dataset_BC_subtype_mb <-  whole_dataset_BC_subtype_filt %>% dplyr::select(GRADE,AURKA,CCNB2,CDCA5,UBE2C,\
+                                                                                APH1B,BBOF1,CYB5D1,MKNK2)\
+\
+# Reshaping data\
+\
+whole_dataset_BC_subtype_melt <- melt(whole_dataset_BC_subtype_mb, id = "GRADE")        \
+\
+ggplot(whole_dataset_BC_subtype_melt, aes(x = variable, y = value, \
+                                          fill = as.factor(GRADE))) +\
+  \
+  geom_violin(trim = FALSE, alpha = 0.4, color = NA,\
+              draw_quantiles = c(0.25, 0.5, 0.75),\
+              position = position_dodge(width = 0.9)) +\
+  \
+  \
+  geom_boxplot(width = 0.25, color = "black", outlier.shape = NA,\
+               position = position_dodge(width = 0.9),alpha = 0.4) +\
+  \
+\
+  stat_compare_means(paired = FALSE, label = "p.signif") +\
+  \
+\
+  theme(legend.position = "left") +\
+  scale_fill_manual(values = c("#4c54a1", "#e83b3d")) +\
+  theme_classic()\
+\
+\
+\
+#2. calculation of pearson correlation coefficients Drawing of correlation plots\
+\
+cor.test(whole_dataset_BC_subtype$UBE2C, whole_dataset_BC_subtype$MKI67, method= "pearson")\
+\
+ggplot(whole_dataset_BC_subtype, aes(x=UBE2C, y=MKI67)) + \
+  geom_point(size=4, shape=16 ,alpha=0.5, color= "#0080ff") +\
+  geom_smooth(method=lm, linetype="solid", se= FALSE, size=1.5, color = "#FF0000") +\
+  theme_classic() + theme(legend.title=element_blank(), legend.position = "none",axis.title=element_text(size=16)) + \
+  annotate("text", x=9, y=5.2, label= "r = 0.69, p < 0.0001", color="black", size=5)\
+\
+\
+\
+\
+\
+#3. survival analyses\
+\
+#filtering of METABRIC patients for vital status\
+\
+whole_dataset_BC_subtype_dod <-  whole_dataset_BC_subtype %>% filter(!VITAL_STATUS == "Died of Other Causes")\
+\
+#selection of the features of interest\
+whole_dataset_BC_subtype_sel <-  whole_dataset_BC_subtype_dod %>% dplyr::select(PATIENT_ID,OS_STATUS,OS_MONTHS,\
+                                                                                RFS_STATUS,RFS_MONTHS, APH1B,BBOF1,\
+                                                                                CYB5D1,MKNK2)\
+#overall SURVIVAL\
+summary(whole_dataset_BC_subtype_sel$MKNK2) \
+\
+whole_dataset_BC_subtype_mut <- whole_dataset_BC_subtype_sel %>% mutate(exp = \
+                                                                          ifelse(MKNK2 > 10.573, "H", "L")) ##\
+\
+gene_sum_fit_os <- survfit(Surv(OS_MONTHS, as.numeric(OS_STATUS))~exp,\
+                           data = whole_dataset_BC_subtype_mut)\
+\
+ggsurvplot(\
+  gene_sum_fit_os,\
+  pval = TRUE,\
+  pval.method = FALSE,\
+  conf.int = FALSE,\
+  palette = c("#FF3333", "#3399FF"),\
+  title = "MKNK2 OS",\
+  risk.table = TRUE,\
+  risk.table.y.text = TRUE,  \
+  risk.table.height = 0.25, \
+  risk.table.fontsize = 4,  \
+  risk.table.col = "strata")\
+\
+\
+#relapse free survival\
+\
+gene_sum_fit_rfs <- survfit(Surv(RFS_MONTHS, as.numeric(RFS_STATUS))~exp,\
+                           data = whole_dataset_BC_subtype_mut)\
+\
+ggsurvplot(\
+  gene_sum_fit_rfs,\
+  pval = TRUE,\
+  pval.method = FALSE,\
+  conf.int = FALSE,\
+  palette = c("#FF3333", "#3399FF"),\
+  title = "MKNK2 RFS",\
+  risk.table = TRUE,\
+  risk.table.y.text = TRUE,  \
+  risk.table.height = 0.25,  \
+  risk.table.fontsize = 4,   \
+  risk.table.col = "strata")\
+}

@@ -1,0 +1,130 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2638
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww11520\viewh8400\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 library(tidyverse)\
+library(ggpubr)\
+library(survival)\
+library(survminer)\
+library(reshape2)  \
+\
+\
+#data upload\
+dt_er_pos_8genes <- read_csv("DT_ER+_8genes.csv")\
+dt_er_pos_8genes$...1 <- NULL\
+dt_er_pos_8genes$`Unnamed: 0` <- NULL\
+\
+dt_er_pos_sel_8genes <-  dt_er_pos_8genes %>% dplyr::select(cluster,AURKA,CCNB2,CDCA5,UBE2C,\
+                                                            APH1B,C14orf45,CYB5D1,MKNK2,MKI67)\
+\
+#1. multiple violin plot\
+\
+dt_er_pos_melt_8genes <- melt(dt_er_pos_sel_8genes, id = "cluster")                     \
+\
+ggplot(dt_er_pos_melt_8genes, aes(x = variable, y = value, \
+                                          color = as.factor(cluster),\
+                                          fill = as.factor(cluster))) +  # ggplot function\
+  geom_boxplot(outlier.shape = NA, alpha = 0.3)+stat_compare_means(paired = F, label="p.signif") + \
+  theme(legend.position="top")+ ylab("gene expression")+\
+  scale_color_manual(values=c("#006666", "#999900")) + theme_classic() + #labs(fill = "Cluster")+\
+  scale_fill_manual(values=c("#006666", "#999900"))\
+\
+\
+\
+ggplot(dt_er_pos_8genes,  aes(y= MKI67, x= reorder(as.factor(cluster),MKI67, FUN =mean), \
+                              fill= as.factor(cluster), color = as.factor(cluster))) +\
+  \
+  geom_violin(trim = FALSE, alpha = 0.4, color = NA,\
+              draw_quantiles = c(0.25, 0.5, 0.75),\
+              position = position_dodge(width = 0.9)) +\
+  \
+\
+  geom_boxplot(width = 0.35, color = "black", outlier.shape = NA,\
+               position = position_dodge(width = 0.9),alpha = 0.4) +\
+  \
+ \
+  stat_compare_means(paired = FALSE, label = "p.signif") +\
+  \
+ \
+  theme(legend.position = "left") +\
+  scale_fill_manual(values = c("#006666", "#999900")) +\
+  theme_classic()\
+\
+ggplot(dt_er_pos_8genes,  aes(y= MKI67, x= reorder(as.factor(cluster),MKI67, FUN =mean), \
+                       fill= as.factor(cluster), color = as.factor(cluster))) +\
+  geom_boxplot(outlier.shape=NA, alpha = 0.5, outlier.size=1, position=position_dodge(1)) + \
+  theme_classic()+ labs(y = "gene expression") +\
+  scale_color_manual(values=c("#006666", "#999900")) + theme_classic() +\
+  scale_fill_manual(values=c("#006666", "#999900"))+\
+  theme(axis.text.x = element_blank(),\
+        axis.ticks = element_blank(), legend.position = "right")+\
+  ggtitle("KI67 expression")+ \
+  stat_compare_means()#label = "p.signif"\
+\
+  \
+############  upload grade data\
+grades_TCGA <- read_csv("grades_TCGA.csv")\
+dt_er_pos_sel_8genes_plus_grade <- inner_join(dt_er_pos_8genes,grades_TCGA, by = "sample")\
+\
+\
+\
+# 2. survival analysis \
+dt_er_pos_months_8genes <- dt_er_pos_8genes %>% mutate(dfi_time_new=DFI.time/30) %>%\
+                                                mutate(pfi_time_new=DFI.time/30) \
+\
+#DFI \
+dt_er_pos_filtered_DFI_8genes <- dt_er_pos_months_8genes %>% filter(dfi_time_new <= 120)\
+\
+dt_er_pos_fit_DFI_8genes <- survfit(Surv(dfi_time_new, as.numeric(DFI))~cluster,\
+                                    data = dt_er_pos_filtered_DFI_8genes)\
+\
+ggsurvplot(dt_er_pos_fit_DFI_8genes, pval = TRUE, \
+           conf.int = FALSE, risk.table= T, title= "Disease-free interval",\
+           palette = c("#006666", "#D2AF00"))#\
+\
+\
+#PFI \
+dt_er_pos_filtered_pfi_8genes <- dt_er_pos_months_8genes %>% filter(pfi_time_new <= 85)\
+\
+dt_er_pos_fit_pfi_8genes <- survfit(Surv(pfi_time_new, as.numeric(PFI))~cluster,\
+                                    data = dt_er_pos_filtered_pfi_8genes)\
+\
+ggsurvplot(dt_er_pos_fit_pfi_8genes, \
+           pval = TRUE, conf.int = FALSE, risk.table= T, \
+           title= "Progression-free interval",\
+           palette = c("#006666", "#D2AF00"))\
+\
+\
+\
+\
+#3. stacked bar plot grade vs clusters\
+\
+dt_er_pos_sel_8genes_plus_grade_2_3 <- dt_er_pos_sel_8genes_plus_grade %>% filter(grade == "2"|grade == "3")\
+#nrow(dt_er_pos_sel_8genes_plus_grade_2_3 %>% filter(cluster == "1" & grade == "3"))\
+\
+ggplot(data = dt_er_pos_sel_8genes_plus_grade) + \
+  geom_bar(mapping = aes(x = as.factor(cluster), \
+                         fill = as.factor(Tumor_nature2012)),position = "fill") +\
+  theme_classic() +\
+  scale_y_continuous(labels = scales::percent_format())\
+\
+\
+fisher.test(dt_er_pos_sel_8genes_plus_grade$Node_Coded_nature2012, dt_er_pos_sel_8genes_plus_grade$cluster) %>% \
+  broom::tidy() %>% glimpse()\
+\
+\
+ggplot(dt_er_pos_sel_8genes_plus_grade_2_3,  aes(y= UBE2C, x= reorder(as.factor(grade),UBE2C, FUN =mean), \
+                              fill= as.factor(grade), color = as.factor(grade))) +\
+  geom_boxplot(outlier.shape=NA, alpha = 0.5, outlier.size=1, position=position_dodge(1)) + \
+  theme_classic()+ labs(y = "gene expression") +\
+  #scale_color_manual(values=c("#002266", "#ff0000")) + theme_classic() +\
+  #scale_fill_manual(values=c("#002266", "#ff0000"))+\
+  theme(axis.text.x = element_blank(),\
+        axis.ticks = element_blank(), legend.position = "right")+\
+  #ggtitle("expression")+\
+stat_compare_means()#label = "p.signif"\
+\
+}
