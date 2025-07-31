@@ -8,7 +8,7 @@ Key components include:
 
 - Feature selection and grade classification using METABRIC gene expression data.
 - Unsupervised clustering and validation on TCGA samples.
-- Integration of OCR-derived clinical annotations from pathology reports.
+- Integration of OCR-extracted clinical annotations from pathology reports.
 - Survival analysis.
 - Model explainability using SHAP.
 - Report generation using Large Language Models (LLMs) for both patients and clinicians.
@@ -33,6 +33,9 @@ Key components include:
 │   ├── Gemini_2.0-Flash (reports and prompts)
 │   ├── GPT-4o (reports and prompts)
 |
-└── `TCGA_OCR_grades.csv` – Contains grade information for TCGA patients, extracted via OCR from unstructured, multipage PDF pathology reports.
-Used reports are available online at this [link](https://github.com/inodb/datahub/tree/add-symlink-path-report/tcga/pathology_reports)
+└── `TCGA_OCR_grades.csv` – Contains OCR-extracted grade information for TCGA.
 └── README.md
+
+## 📝 OCR-Based Grade Extraction
+
+Grade information for TCGA patients was extracted via OCR from unstructured, multipage PDF pathology reports is provided in the `TCGA_OCR_grades.csv` file. Used reports are publicly available online at this [link](https://github.com/inodb/datahub/tree/add-symlink-path-report/tcga/pathology_reports).
