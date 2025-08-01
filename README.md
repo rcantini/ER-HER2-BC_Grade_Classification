@@ -7,7 +7,7 @@ Key components of this repository include:
 - **Feature selection and grade classification** using METABRIC gene expression data  
 - **Clustering and survival analysis** on TCGA samples for cross-dataset validation  
 - **Statistical validation** using OCR-extracted grades from TCGA pathology reports    
-- **Model explainability** using SHAP  
+- **Model explainability** using SHAP for gene-level attribution
 - **LLM-generated reports** tailored for patients and clinicians 
 
 
