@@ -52,7 +52,7 @@ Reports were manually evaluated by domain experts on a 0–5 Likert scale (0 = p
 
 An *overall quality* score was also computed as the mean of these four. To reduce bias, LLMs were anonymized as *LLM A* and *LLM B* during evaluation. The actual model identities are disclosed in the file post-evaluation.
 
-See [`experts_evaluation.xlsx`](./experts_evaluations.xlsx) for:
+See [`experts_evaluation.xlsx`](./experts_evaluation.xlsx) for:
 - Scores achieved per patient and criterion  
 - Post-evaluation model mapping  
 
