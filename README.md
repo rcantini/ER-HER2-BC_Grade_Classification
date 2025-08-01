@@ -21,7 +21,7 @@ Key components include:
 ├── LLM-generated-reports/
 │   ├── Gemini_2.0-Flash (reports and prompts)
 │   ├── GPT-4o (reports and prompts)
-│   └── experts_evaluation.xlsx (full per-patient and per-dimension breakdowns)
+│   └── experts_evaluation.xlsx (full per-patient and per-dimension scores)
 │
 ├── notebooks/
 │   ├── METABRIC_classification.ipynb
@@ -34,7 +34,7 @@ Key components include:
 │   ├── download_reports.py
 │   └── reports_filtering.py
 │
-├── `TCGA_OCR_grades.csv` – Contains OCR-extracted grade information for TCGA.
+├── `TCGA_OCR_grades.csv` (OCR-extracted grade information for TCGA)
 └── README.md
 ```
 
