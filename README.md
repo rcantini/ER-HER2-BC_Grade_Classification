@@ -1,17 +1,14 @@
 # ER+/HER2- Breast Cancer Grade Classification Using Machine Learning
-> Intepretable grade prediction pipeline for **ER+/HER2- Breast Cancer** using an **8-gene signature**. It includes classification, clustering, survival analysis, knowledge distillation, OCR-based grade extraction, post-hoc explainability, and LLM-powered clinical reporting.
+> This repository implements an effective and interpretable pipeline for predicting **histological tumor grade** in **ER+/HER2- breast cancer** patients using an **8-gene signature**.
+> It includes grade classification, gene-level clustering, survival analysis, knowledge distillation, OCR-based grade extraction, post-hoc explainability, and clinical reporting with Large Language Models.
 
 ## 🧬 Overview
-
-This repository implements an effective and interpretable pipeline for predicting histological tumor grade in ER+/HER2- breast cancer patients.  
-
-Key components include:
-- Feature selection and grade classification using METABRIC gene expression data.
-- Clustering analysis on TCGA samples.
-- Survival analysis and statistical validation.
-- Integration of OCR-extracted clinical annotations from pathology reports.
-- Model explainability using SHAP.
-- Report generation using Large Language Models (LLMs) for both patients and clinicians.
+Key components of this repository include:
+- **Feature selection and grade classification** using METABRIC gene expression data  
+- **Clustering and survival analysis** on TCGA samples for cross-dataset validation  
+- **Statistical validation** using OCR-extracted grades from TCGA pathology reports    
+- **Model explainability** using SHAP  
+- **LLM-generated reports** tailored for patients and clinicians 
 
 
 ## 📂 Repository Structure
