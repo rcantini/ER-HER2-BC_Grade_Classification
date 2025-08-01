@@ -45,10 +45,10 @@ To foster further research, grade information for TCGA patients – extracted vi
 ## 📊 Expert Evaluations of LLM-Generated Clinical Reports
 
 Reports were manually evaluated by domain experts on a 0–5 Likert scale (0 = poor, 5 = excellent) across four criteria:
-- *Scientific accuracy*  
-- *Clinical clarity*  
-- *Clinical utility*  
-- *Structural readability*  
+- *Clinical clarity* – Is the interpretation clear, understandable, and clinically meaningful?
+- *Scientific accuracy* – Are the genetic contributors correctly explained in the context of breast cancer biology?
+- *Clinical utility* – Does the report support clinical decision-making?
+- *Structural readability* – Is the report logically organized and easy to read?
 
 An *overall quality* score was also computed as the mean of these four. To reduce bias, LLMs were anonymized as *LLM A* and *LLM B* during evaluation. The actual model identities are disclosed in the file post-evaluation.
 
