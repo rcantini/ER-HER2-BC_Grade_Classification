@@ -34,7 +34,7 @@ Key components include:
 │   ├── download_reports.py
 │   └── reports_filtering.py
 │
-├── `TCGA_OCR_grades.csv` (OCR-extracted grade information for TCGA)
+├── TCGA_OCR_grades.csv (OCR-extracted grade information for TCGA)
 └── README.md
 ```
 
