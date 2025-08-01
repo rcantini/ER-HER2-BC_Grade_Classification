@@ -42,6 +42,21 @@ Key components include:
 
 To foster further research, grade information for TCGA patients – extracted via OCR from unstructured, multipage PDF pathology reports – is provided in the `TCGA_OCR_grades.csv` file. Used reports are publicly available online at this [link](https://github.com/inodb/datahub/tree/add-symlink-path-report/tcga/pathology_reports).
 
+## 📊 Expert Evaluations
+
+Reports were manually evaluated by domain experts on a 0–5 Likert scale (0 = poor, 5 = excellent) across four criteria:
+- *Scientific accuracy*  
+- *Clinical clarity*  
+- *Clinical utility*  
+- *Structural readability*  
+
+An *overall quality* score was also computed as the mean of these four. To reduce bias, LLMs were anonymized as *LLM A* and *LLM B* during evaluation. The actual model identities are disclosed in the file post-evaluation.
+
+See [`experts_evaluations.xlsx`](./experts_evaluations.xlsx) for:
+- Scores achieved per patient and criterion  
+- Post-evaluation model mapping  
+
+
 ## ✉️ Contact
 
 For questions, collaborations, or support, feel free to contact:
